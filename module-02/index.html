@@ -64,8 +64,19 @@
     <div class="circle"></div>
 
     <script>
-        // JavaScript code goes here  
-        
+         document.querySelector('h1').innerHTML = 'web mapping is sweet!'; 
+        var box = document.getElementById('box');
+        box.style.background = '#4d4a9f';
+        var elements = document.getElementsByClassName('circle');
+        for(var i=0; i <= elements.length-1;i++){
+    elements[i].style['border-radius'] = '20%';  
+}
+        box.addEventListener('click', function() {
+    this.style.width = '400px';   
+});
+        var newListItem = document.createElement('li');
+newListItem.innerHTML = "list item 4";
+document.querySelector('ul').appendChild(newListItem);
     </script>
     
 </body>
