@@ -79,21 +79,28 @@
     <div class="circle"></div>
 
     <script>
-         document.querySelector('h1').innerHTML = 'web mapping is sweet!'; 
-        var box = document.getElementById('box');
-        box.style.background = '#4d4a9f';
-        var elements = document.getElementsByClassName('circle');
-        for(var i=0; i <= elements.length-1;i++){
+     document.querySelector('h1').innerHTML = 'web mapping is sweet!'; </script>
+    <script> 
+    var box = document.getElementById('box'); </script>
+    <script> 
+    box.style.background = '#4d4a9f';</script>
+    <script>
+    var elements = document.getElementsByClassName('circle');</script>
+    <script>
+    for(var i=0; i <= elements.length-1;i++){
     elements[i].style['border-radius'] = '20%';  
-}
-        box.addEventListener('click', function() {
+} </script>
+    
+    <script> box.addEventListener('click', function() {
     this.style.width = '400px';   
-});
-        var newListItem = document.createElement('li');
+}); </script>
+    
+    <script> 
+    var newListItem = document.createElement('li');
 newListItem.innerHTML = "list item 4";
-document.querySelector('ul').appendChild(newListItem);
-        console.log("hello map");
-    </script>
+document.querySelector('ul').appendChild(newListItem); </script>
+    <script>
+    console.log("hello map"); </script>
     
 </body>
 
