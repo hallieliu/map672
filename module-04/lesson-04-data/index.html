@@ -16,8 +16,137 @@
 
 
 <script>
-/* JavaScript code goes here! */
-
+/* Hallie's JavaScript code for Lesson 04 is below! */
+/*
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    console.log(cities.length);
+    var years = [2011, 2012, 2013, 2014, 2015, 2016];
+    var yearsNum = years.length;
+    console.log(yearsNum);
+    
+    // FOR loops
+    console.log("before the for loop");
+    for (var i = 0; i < 5; i++) {
+        console.log(i); 
+    }
+    console.log("after the for loop");
+        // replaced 'i' with 'number' and wrote it out longhand-- look, it works!
+    for (var number = 0; number < 5; number = number + 1) {
+        console.log(number); 
+    }
+        // using the length property within a FOR loop...yay.
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    for (var i = 0; i < cities.length; i++) {
+        console.log(i); 
+        console.log(cities[i]); 
+    }
+        // using a FOR loop to populate an array - nifty!
+    var newArray = []; 
+    for(var i = 0; i < 10; i++) {
+        newArray[i] = i + 1;
+    }
+    console.log(newArray);
+        // and now...loopception o_O
+    for (var i = 0; i < 5; i++) {
+        console.log('outer loop: ' + i);
+        for (var j = 0; j < 5; j++) {
+            console.log('inner loop: '+ j);
+        }
+    }
+        // tricky math questions!
+    var sum = 0;
+    for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 5; j++) {
+            sum += j;
+        }
+        sum += i;
+    }
+    console.log(sum);
+    
+    // WHILE loops
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    var i = 0;
+    while (i < cities.length){  
+        console.log(i);
+        console.log(cities[i]);
+        i++     
+    }  
+    
+    // IF statements
+    var temp = 32;
+    if(temp === 32) {
+    console.log('the temperature is freezing');
+    }
+        // what if it's...33 degrees?
+    var temp = temp+1;
+    if(temp === 32) {
+        console.log('the temperature is freezing');
+    }
+    
+    // add an ELSE statement
+    var temp = 33;
+    if(temp === 32) {
+        console.log('the temperature is freezing');
+    } else {
+        console.log('the temperature is NOT 32, but still may be freezing');
+    }
+    
+    // ELSE IF's!
+    var temp = 33;
+    if(temp <= 32) {
+        console.log('the temperature is freezing');
+    } else if(temp > 32) {
+        console.log('the temperature is above freezing');
+    } else {
+        console.log('the value of temp must not be a number');
+    }
+    
+    for(var i = 0; i <= 10; i++) {
+        if(i === 5) {
+            break;
+        }
+        console.log(i); 
+    }
+    
+    // Question: How is the output different if the console.log(i); statement executes before the if statement? 
+        // Answer: The console will output 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 instead of stopping after the first 5 values (0-4).
+    
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    var testCity = "Louisville";
+    for (var i = 0; i <= cities.length; i++) {
+        if(cities[i] == testCity) {
+            console.log(testCity + " is found in the city Array!");
+        }
+    }
+    
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    var testCity = "Louisville";
+    for (var i = 0; i <= cities.length; i++) {
+        if(cities[i] == testCity) {
+            console.log(testCity + " is found in the city Array at index "+ i+ "!");
+        }
+    }
+    
+    var cities = ["Frankfort", "Louisville", "Lexington"];
+    var testCity = "Bowling Green";
+    for (var i = 0; i <= cities.length; i++) {
+        if(cities[i] == testCity) {
+            console.log(testCity + " is found in the city Array at index "+ i+ "!");
+        } else {
+            console.log(testCity + " was not found within the Array at index "+ i+ "!");
+        }
+    }
+    */
+    // And now, time for a BREAK
+    var years = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015];
+    for(var i = 0; i <= years.length; i++) {
+        if(years[i] == 2012) {
+        break;
+        } else {
+            console.log(years[i]);
+        }
+    }
+    
 </script>
     
 </body>
