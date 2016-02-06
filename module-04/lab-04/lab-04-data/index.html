@@ -51,16 +51,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Which City is the Most Hipster?</h1>
+        <h2>Top 3 Western U.S. Candidates</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Hallie Liu</p>
+        <p>Coordinate and Population Statistics established via Google.</p>
+        <p>Factors used to determine candidacy include personal experience, general knowledge, and proximity to the ocean. This map was produced as part of an assignment for a class offered by the University of Kentucky, through their <a href=http://newmapsplus.uky.edu/>New Maps Plus</a> program. 
         </p>
     </footer>
 
@@ -69,8 +69,8 @@
         var targetDiv = 'map';
 
         var options = {
-            center: [0, 0],
-            zoom: 2
+            center: [40.5, -120],
+            zoom: 5
         }
         map = L.map(targetDiv, options);
         var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -79,27 +79,22 @@
         map.addLayer(tiles);
         
         // begin writing/editing Lab 04 code here
-        var cities = [San Diego, Portland, Seattle];
+        var cities = ["San Diego", "Portland", "Seattle"];
         var cityCoords = [[32.7150, -117.1625], [45.5200, -122.6819], [47.6097, -122.3331]];
         var cityPops = [1381069, 619360, 662400];   // 2014 population
-        var cityCapital = [false, false, false];
+        var cityCapital = [false, false, false]; 
         
-        
+        for(i=0; i<3; i++) {
+            var popup = "<b>"+ cities[i] +"</b><br>"
+                            +"<b>Population</b>: "+ cityPops[i];
 
-//        for(/* add code here */) {
-//            
-//            var popup = "<b>"+/* add code here */+"</b><br>"
-//                            +"<b>population</b>: "+/* add code here */;
-//
-//            if(/* add code here */) {
-//               
-//                popup += "<br>Is the capital city."; 
-//                
-//            } 
-//            
-//            L.marker(/* add code here */).addTo(map)
-//                .bindPopup(popup);
-//        }
+            if(cityCapital[i] == true) {               
+                popup += "<br>Is the capital city.";                 
+            } 
+            
+            L.marker(cityCoords[i]).addTo(map)
+                .bindPopup(popup);
+        }
         
         // end writing/editing Lab 04 code here
         
