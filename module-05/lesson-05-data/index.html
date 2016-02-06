@@ -12,7 +12,108 @@
 
 <script>
 /* Hallie's Lesson 05 JavaScript code is below! */
+/* function helloMap() {
+    console.log("Hello Map");
+    }   // a FUNCTION DECLARATION
+    helloMap();  // let's CALL that function!
+    helloMap();
+    helloMap();
+    
+    helloMap();         // HOISTING das function
+    
+    function helloMap() {
+    console.log("Hello Map");
+    }      
+    
+    // a FUNCTION EXPRESSION
+    var helloMap = function() {
+        console.log("Hello Map");
+    };
 
+    helloMap();         // if we try to HOIST this function, it will break. Wah wah. Therefore I will not try this. I believe you, Rich.
+    
+    // I'm inside! Should log first....womp. I was wrong.
+    function outerFunction(message) {                           // declaring the function outerFunction
+    console.log(message);                                           // log oF message to console
+    var innerFunction = function(message) {                         // there is a variable consisting of a function; that function is called innerFunction
+        console.log(message);                                       // log iF to console
+    };
+    innerFunction("I’m inside!");                                   // the iF message is: I'm inside!
+    }
+    outerFunction("i'm outside!");                              // calling the function outerFunction with the message: i'm outside!
+        // okay, now I see why i'm outside! logs before I'm inside! (line 38; the oF message is called before the iF message)
+           */
+    function saySomething(message) {    // message = parameter of saySomething
+    console.log(message);
+    }
+    /*
+    saySomething("Hello Map");
+    saySomething("Please enter the address you'd like to search for.");
+    
+          // alternatively, using variables to pass parameters:
+    var firstMessage = "Hello Map";
+    saySomething(firstMessage);
+
+    var secondMessage = "Please enter the address you'd like to search for."
+    saySomething(secondMessage);
+    */
+        // or, just call the variable by the parameter name and change the value of the variable:
+    var message = "Hello Map";
+    saySomething(message);
+
+    message = "Please enter the address you'd like to search for."
+    saySomething(message);
+    
+    // This function has TWO parameters
+    function calcAreaRect(width,height){
+    var area = width * height;
+    console.log(area);
+    }
+    /*
+    calcAreaRect(40,30);
+    */
+    // or, pass the parameters as variables
+    var width = 40;
+    var height = 30;
+    calcAreaRect(width,height);
+    
+    // because we are trying to prove a point...
+    var peanutButter = 40;
+    var jelly = 30
+    calcAreaRect(peanutButter,jelly);
+    
+    // let's demonstrate the RETURN function!
+    function calcuAreaRect(width,height){
+    var area = width * height;
+    return area; 
+    }
+
+    var calculatedArea = calcuAreaRect(40,30);  
+    console.log(calculatedArea);
+    
+    // order of operations when using the return function:
+    function sayThings() {
+
+    console.log("thing 1"); 
+    console.log("thing 2"); 
+    return;                  
+    console.log("thing 3"); 
+    }
+
+    sayThings();
+    
+    // return an array
+    function getMultiValues() {
+    var value1 = 5;
+    var value2 = "iguana";
+    return [value1, value2];
+    }
+
+    var values = getMultiValues();
+    console.log(values[0]); 
+    console.log(values[1]);
+    
+    // yay global vs. local scope. How convenient for staying organized!
 </script>
     
 </body>
