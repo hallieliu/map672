@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 03 Starter Template</title>
+    <title>Top 3 Cities to Visit in Kentucky</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -84,11 +84,11 @@
         
         // BEGIN WRITING CODE FOR LAB 03 HERE
         // Steps 01-03
-        var city1Name = 'Lexington';
-        var city1Lat = 38.0297;
-        var city1Lon = -84.4947;
-        var city1Pop = 308428;
-        var city1Capital = false;
+        var city1Name = 'Lexington',  // note how you can declare multiple variables with a single
+            city1Lat = 38.0297,       // var statement and commas between them
+            city1Lon = -84.4947,
+            city1Pop = 308428,
+            city1Capital = false;
         
         // City #2: Frankfort
         var city2Name = 'Frankfort';
@@ -113,13 +113,13 @@
         console.log("The average population of these cities is: " + averagePop);
         
         // An array of flagged Cities, in order
-        var cities = ['Lexington', 'Frankfort', 'Louisville'];
+        var cities = [city1Name, city2Name, city3Name];
         console.log(cities[2]);
-        // END WRITING CODE FOR LAB 03 HERE
+      
         
         // CITY1 MARKER CODE Below
         var city1Popup = "<b>"+city1Name+"</b><br>"
-                        +"<b>population</b>: "+city1Pop;
+                        +"<b>population</b>: "+city1Pop.toLocaleString();
         
         if(city1Capital == true) {
             city1Popup += "<br>Capital of the Commonwealth of Kentucky";   
