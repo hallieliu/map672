@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 04 Starter Template</title>
+    <title>Hipster Cities</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -60,7 +60,7 @@
     <footer>
         <p>Map authored by Hallie Liu</p>
         <p>Coordinate and Population Statistics established via Google.</p>
-        <p>Factors used to determine candidacy include personal experience, general knowledge, and proximity to the ocean. This map was produced as part of an assignment for a class offered by the University of Kentucky, through their <a href=http://newmapsplus.uky.edu/>New Maps Plus</a> program. 
+        <p>Factors used to determine candidacy include personal experience, general knowledge, and proximity to the ocean. This map was produced as part of an assignment for a class offered by the University of Kentucky, through their <a href="http://newmapsplus.uky.edu/">New Maps Plus</a> program. 
         </p>
     </footer>
 
@@ -78,13 +78,16 @@
 });
         map.addLayer(tiles);
         
-        // begin writing/editing Lab 04 code here
         var cities = ["San Diego", "Portland", "Seattle"];
-        var cityCoords = [[32.7150, -117.1625], [45.5200, -122.6819], [47.6097, -122.3331]];
+        var cityCoords = [
+            [32.7150, -117.1625], // easier to read this way
+            [45.5200, -122.6819], 
+            [47.6097, -122.3331]
+        ];
         var cityPops = [1381069, 619360, 662400];   // 2014 population
         var cityCapital = [false, false, false]; 
         
-        for(i=0; i<3; i++) {
+        for(i = 0; i < cityCoords.length; i++) {  // best to use the length of your array!
             var popup = "<b>"+ cities[i] +"</b><br>"
                             +"<b>Population</b>: "+ cityPops[i];
 
@@ -95,9 +98,6 @@
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
         }
-        
-        // end writing/editing Lab 04 code here
-        
           
     </script>
     
