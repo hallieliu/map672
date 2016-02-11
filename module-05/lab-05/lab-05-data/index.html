@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             background: whitesmoke;
-            font-family: Lato, sans-serif;
+            font-family: Valentina, sans-serif;
             color: #0D0000;
         }
         header {
@@ -26,15 +26,18 @@
             display: inline-block;
             margin-right: 20px;
             color: #001323;
+            text-shadow: .5px .5px 2px grey;
         }
         h2 {
             display: inline-block;
             color: #001323;
+            text-shadow: .5px .5px 2px grey;
         }
         #map {
             width: 80%;
             height: 540px;
             margin: 10px auto;
+            box-shadow: 2px 2px 10px grey;
         }
         footer {
             padding: 6px 10%;
@@ -43,10 +46,8 @@
         p {
             font-size: 1em;
             color: #001323;
+            font-weight: bold;
         }
-        /* Additional style rules go here! */
-        
-
     </style>
 </head>
 
@@ -60,8 +61,8 @@
 
     <footer>
         <p>Este mapa hecho por Hallie Liu, el Febrero del año 2016.</p>
-        <p>Era tarea de la clase se llama MAP 672; es un curso oferto de la Universidad de Kentucky (en los Estados Unidos) y parte del programa postgrado de cartografía. El programa de New Maps Plus tiene deseño para avancar las abilidades de sus estudiantes en la Red y del cartografía moderno.</p>
-        <p>El mapa encima no tiene propósito más que demostrar cómo funciona al javascript para los mapas en una página de la internet. 
+        <p>Era tarea de la clase se llama <a href="http://newmapsplus.uky.edu/map672-programming-web-mapping-syllabus"> MAP 672</a>; es un curso oferto de la <a href="http://uky.edu/">Universidad de Kentucky</a> (en los Estados Unidos) y parte del programa postgrado de cartografía. El programa de <a href="newmapsplus.uky.edu/">New Maps Plus</a> tiene diseño para avanzar la tecnología en cartografía moderno.</p>
+        <p>El mapa encima no tiene propósito más que demostrar cómo funciona al javascript para los mapas en una página de la Internet. La fuente se llama <a href="http://pedroarilla.com/en/valentina">Valentina</a> y hecho por <a href="http://pedroarilla.com/es/">Sr. Pedro Arilla</a>; otra información contenida en la página ha descubrido con Google y la asistencia del profe (<a href="https://github.com/rgdonohue">Rich Donohue</a>).
         </p>
     </footer>
 
@@ -81,9 +82,9 @@
     });
     map.addLayer(tiles);
 
-    var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
-        minnArea = Number(prompt("Enter data", "Enter the area of Minneapolis in square miles"));
-        nycArea = Number(prompt("Enter data", "Enter the area of New York City in square miles"));
+    var lexArea = Number(prompt("Entra la información", "Entra el área de Lexington en millas cuadradas"));
+        minnArea = Number(prompt("Entra la información", "Entra el área de Minneapolis en millas cuadradas"));
+        nycArea = Number(prompt("Entra la información", "Entra el área de la ciudad de Nueva York en millas cuadradas"));
 
     prepareData(lexArea, minnArea, nycArea);
     // ~285.5, ~58.4, ~468.9
@@ -104,12 +105,12 @@
 
     function mapCities(cities, cityCoords, cityPops, cityAreas) { 
 
-        var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
+        var units = prompt('Cómo quiere calcular la densidad', 'Entra "millas" or "km"');
         for(var i = 0; i < cities.length; i++) {
 
             var density =  calcPopDensity(cityPops[i], cityAreas[i], units);
             var popup = "<b>"+cities[i]+"</b><br>"
-                            +"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
+                            +"<b>Densidad</b>: "+density.toLocaleString()+" gente por " + units + "cuadrado/as";
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
         }
@@ -118,7 +119,7 @@
 
     function calcPopDensity(cityPops, cityAreas, units) {
         
-        if(units == "miles") {
+        if(units == "millas") {
             var density = (cityPops/cityAreas);
             return density;
         }
