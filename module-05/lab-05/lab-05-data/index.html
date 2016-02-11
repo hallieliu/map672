@@ -110,7 +110,7 @@
 
             var density =  calcPopDensity(cityPops[i], cityAreas[i], units);
             var popup = "<b>"+cities[i]+"</b><br>"
-                            +"<b>Densidad</b>: "+density.toLocaleString()+" gente por " + units + "cuadrado/as";
+                            +"<b>Densidad</b>: "+density.toLocaleString()+" gente por " + units;
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
         }
@@ -124,7 +124,22 @@
             return density;
         }
         
+        else if(units == "mi") {
+            var density = (cityPops/cityAreas);
+            return density;
+        }
+        
         else if(units == "km") {
+            var density = (cityPops/cityAreas)*2.59;
+            return density;
+        }
+        
+        else if(units == "kilometros") {
+            var density = (cityPops/cityAreas)*2.59;
+            return density;
+        }
+        
+        else if(units == "kilómetros") {
             var density = (cityPops/cityAreas)*2.59;
             return density;
         }
