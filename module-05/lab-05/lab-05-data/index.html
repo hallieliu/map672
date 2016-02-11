@@ -107,19 +107,12 @@
         var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
         for(var i = 0; i < cities.length; i++) {
 
-            var density =  calcPopDensity(cityPops, cityAreas, units);
-                 /*call a function named calcPopDensity here, passing
-                             the city population, area, and units as arguments, and assign
-                             return value to the "density" variable */
-
+            var density =  calcPopDensity(cityPops[i], cityAreas[i], units);
             var popup = "<b>"+cities[i]+"</b><br>"
                             +"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
-            
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
-
         }
-        console.log(density);
 
     }
 
@@ -131,14 +124,10 @@
         }
         
         else if(units == "km") {
-            var density = (cityPops/cityAreas)*2.58999;
+            var density = (cityPops/cityAreas)*2.59;
             return density;
         }
     }
-    
-
-
-    // end writing/editing Lab 05 code here
 
 </script>
     
