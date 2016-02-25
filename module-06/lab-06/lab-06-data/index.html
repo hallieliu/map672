@@ -112,7 +112,7 @@
             var props = cities[i].properties;
             console.log(props);
             
-            var popup = "Whoa!";
+            var popup = buildPopup(cities[i].name, props.population, props.state);
             console.log(popup);
             
             L.marker(props.coordinates).addTo(map)
