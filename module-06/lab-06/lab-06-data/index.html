@@ -44,8 +44,18 @@
             font-size: 1em;
             color: #001323;
         }
-        .kentucky-blue {
-            color: #165bb6;
+        
+        /* Color Codes from teamcolorcodes.com */
+        .bearcat-black {                            /* UC Bearcat Black & Red */
+            color: #000000;
+            text-shadow: .25px .25px #E00122;
+        }
+        .cuyahoga-flames {                          /* Cleveland Browns Orange */
+            color: #FE3C00;
+        }
+        .bruised-brutus {                           /* Michigan Maize & Blue */
+            color: #FFCB05;
+            text-shadow: .25px .25px #00274C;
         }
         
     </style>
@@ -113,10 +123,26 @@
             console.log(props);
             
             var popup = buildPopup(cities[i].name, props.population, props.state);
-            console.log(popup);
+            // console.log(popup);
             
             L.marker(props.coordinates).addTo(map)
                 .bindPopup(popup);
+        }
+        
+        // I am color coding based on population instead of state, since these cities are in the same state
+        function buildPopup(name, pop, state) {
+            if (pop <= 300000) {
+                var colorClass = "bearcat-black";
+            }
+            else if (pop <= 800000){
+                var colorClass = "cuyahoga-flames";
+            }
+            else if (pop > 800000){
+                var colorClass = "bruised-brutus";
+            }
+            
+            return "<div class='"+colorClass+"'><b>"+name+"</b><br>"+
+                   "<b>Population</b>: "+pop.toLocaleString()+"<div>";
         }
           
     </script>
