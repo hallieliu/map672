@@ -73,7 +73,15 @@
         minZoom: 4,
         maxZoom: 12
     });
-                
+        
+    var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+	   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	   subdomains: 'abcd',
+	   maxZoom: 19
+    });
+
+    map.addLayer(tiles);
+        
     var redIguana = L.latLng(40.7718,-111.9124);
         
     map.on('click', function(e){
