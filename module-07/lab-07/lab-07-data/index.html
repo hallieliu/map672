@@ -85,9 +85,12 @@
     var redIguana = L.latLng(40.7718,-111.9124);
         
     map.on('click', function(e){
-        console.log(e.latlng);   
+        var currentLocation = e.latlng;
+        map.setView(currentLocation, 6);
+        var distanceAway = currentLocation.distanceTo(redIguana);
+        console.log(distanceAway);
     });
-                  
+            
     </script>
     
 </body>
