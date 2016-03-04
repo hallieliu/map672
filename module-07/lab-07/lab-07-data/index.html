@@ -89,6 +89,10 @@
         map.setView(currentLocation, 6);
         var distanceAway = currentLocation.distanceTo(redIguana);
         console.log(distanceAway);
+        var bounds = map.getBounds();
+        var swCorner = bounds.getSouthWest();
+        var swDistance = swCorner.distanceTo(redIguana);
+        console.log(swDistance);
     });
             
     </script>
