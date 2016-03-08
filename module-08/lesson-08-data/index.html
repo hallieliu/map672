@@ -19,27 +19,33 @@
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
+        
         header {
             padding: 6px 10%;
         }
+        
         h1 {
             display: inline-block;
             margin-right: 20px;
             color: #001323;
         }
+        
         h2 {
             display: inline-block;
             color: #001323;
         }
+        
         #map {
             width: 80%;
             height: 540px;
             margin: 10px auto;
         }
+        
         footer {
             padding: 6px 10%;
             width: 80%;
         }
+        
         p {
             font-size: 1em;
             color: #001323;
@@ -59,13 +65,105 @@
         <p>Map authored by YOUR NAME</p>
         <p>Additional information about the data and map goes here.</p>
     </footer>
-
+    <script src="power-plants.js"></script>
     <script>
+        
+        console.log(plants);
+        /*
+                var places = {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "marker-color": "#7e7e7e",
+                                "marker-size": "medium",
+                                "marker-symbol": "",
+                                "name": "Madrid",
+                                "size": 605.8
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                        -3.698272705078125,
+                                        40.41767833585549
+                                        ]
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "marker-color": "#7e7e7e",
+                                "marker-size": "medium",
+                                "marker-symbol": "",
+                                "name": "Barcelona",
+                                "size": 101.9
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                        2.164306640625,
+                                        41.39741506646461
+                                        ]
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "marker-color": "#7e7e7e",
+                                "marker-size": "medium",
+                                "marker-symbol": "",
+                                "name": "Bilbao",
+                                "size": 40.65
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                        -2.933349609375,
+                                        43.281204464332774
+                                        ]
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "marker-color": "#7e7e7e",
+                                "marker-size": "medium",
+                                "marker-symbol": "",
+                                "name": "Sevilla",
+                                "size": 140
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                        -5.9930419921875,
+                                        37.400710068740565
+                                        ]
+                            }
+                        }
+                    ]
+                }
 
-      // build your Leaflet map here!
-                  
+                var map = L.map('map', {
+                    center: [40.4000, -3.7167],
+                    zoom: 6
+                });
+
+                var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                    maxZoom: 16
+                });
+                tiles.addTo(map);
+
+                var placesLeaflet = L.geoJson(places, {
+                    pointToLayer: function (feature, latlng) {
+                        console.log();
+                        return L.circle(latlng, 20000);
+                    }
+                }).addTo(map);
+                */
     </script>
-    
+
 </body>
 
 </html>
