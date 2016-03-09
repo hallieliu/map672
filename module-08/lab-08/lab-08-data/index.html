@@ -85,8 +85,6 @@
             return b.properties.capacity_mw - a.properties.capacity_mw; // draws symbols biggest on bottom
         });
 
-        var popup = L.popup();
-        
         L.geoJson(plants, {
             pointToLayer: function (feature, latlng) {                  // for each feature, draw a circle marker
                 return L.circleMarker(latlng, {
