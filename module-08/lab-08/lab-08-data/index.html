@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 08 Starter</title>
+    <title>U.S. Petroleum Power Plants</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -55,15 +55,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Petroleum-Fueled Power Plants</h1>
+        <h2>in the United States</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by HALLIE LIU</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>Map authored by Hallie Liu.</p>
+        <p>Select a plant and click for more information, including name and output in MW.</p>
+        <p>Power plant information courtesy of the EIA and available <a href=http://www.eia.gov/electricity/data/eia923/>here</a>. This map built with Leaflet, for Rich Donohue's MAP 672 class, and features CartoDB's Dark Matter tiles.</p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -82,11 +83,11 @@
         tiles.addTo(map);
 
         plants.features.sort(function (a, b) {
-            return b.properties.capacity_mw - a.properties.capacity_mw; // draws symbols biggest on bottom
+            return b.properties.capacity_mw - a.properties.capacity_mw;     // draws symbols biggest on bottom
         });
 
         L.geoJson(plants, {
-            pointToLayer: function (feature, latlng) {                  // for each feature, draw a circle marker
+            pointToLayer: function (feature, latlng) {                      // for each feature, draw a circle marker
                 return L.circleMarker(latlng, {
                     color: 'pink',
                     weight: 1.5,
@@ -95,12 +96,12 @@
                     radius: getRadius(feature.properties.capacity_mw)
                 });
             },
-            filter: function (feature, layer) {                         // only show features where fuel source = petroleum
+            filter: function (feature, layer) {                             // only show features where fuel source = petroleum
                 if (feature.properties.fuel_source.Petroleum) {
                     return feature;
                 }
             },
-            onEachFeature: function (feature, layer) {                  // hover>>>change color + make popup when feature is clicked
+            onEachFeature: function (feature, layer) {                      // hover>>>change color + make popup when feature is clicked
                 layer.on('mouseover', function () {
                     layer.setStyle({
                         fillColor: 'orange'
@@ -111,15 +112,65 @@
                         fillColor: 'purple'
                     });
                 });
-                layer.bindPopup('<b>'+ feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
+                layer.bindPopup('<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
             }
         }).addTo(map);
-        
 
         function getRadius(area) {
             var radius = Math.sqrt(area / Math.PI);
             return radius * .6;
         }
+        
+        
+        /* Attempted to solve the dynamic popup riddle...to no avail
+        L.geoJson(plants, {
+             pointToLayer: function (feature, latlng) {                  // for each feature, draw a circle marker
+                 return L.circleMarker(latlng, {
+                     color: 'blue',
+                     weight: 1.5,
+                     fillColor: 'pink',
+                     fillOpacity: .7,
+                     radius: getRadius(feature.properties.capacity_mw)
+                 });
+             },
+             filter: function (feature, layer) {                         // only show features where fuel source = petroleum
+                 if (feature.properties.fuel_source.Petroleum &&
+                     feature.properties.fuel_source.Coal) {
+                     return feature;
+                 }
+                 if (feature.properties.fuel_source.Petroleum &&
+                     feature.properties.fuel_source.Natural_Gas) {
+                     return feature;
+                 }
+                 if (feature.properties.fuel_source.Petroleum &&
+                     feature.properties.fuel_source.Hydro) {
+                     return feature;
+                 }
+                 if (feature.properties.fuel_source.Petroleum &&
+                     feature.properties.fuel_source.Nuclear) {
+                     return feature;
+                 }
+             },
+             onEachFeature: function (feature, layer) {                  // hover>>>change color + make popup when feature is clicked
+                 layer.on('mouseover', function () {
+                     layer.setStyle({
+                         fillColor: 'orange'
+                     });
+                 });
+                 layer.on('mouseout', function () {
+                     layer.setStyle({
+                         fillColor: 'pink'
+                     });
+                 });
+                 layer.bindPopup('<b>'+ feature.properties.plant_name + '</b><br>' 
+                                 + feature.properties.capacity_mw + ' MW <br><b>' 
+                                 + feature.properties.fuel_source.Hydro + '</b>: ' 
+                                 + '');
+             }
+             
+         }).addTo(map);
+         */
+
     </script>
 
 </body>
