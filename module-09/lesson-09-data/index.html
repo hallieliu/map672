@@ -63,7 +63,7 @@
 
     <footer>
         <p>Map authored by Hallie Liu</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>This map shows energy production in the United States. Circles represent power plants, and circle size corrseponds to power output. Circle color denotes energy source. Click anywhere on the map to view power plants within 500km; to reset the map please refresh the page. Power plant information courtesy of the EIA.</p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -124,19 +124,43 @@
             }).addTo(map);
         }
 
+        map.on('click', function (e) {
+            for (var layer in layerInfo) {
+                geoJsonLayers[layer].eachLayer(function (layer) {
+                    var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+
+                    if (distance > 500) {
+                        layer.setStyle({
+                            stroke: false,
+                            fill: false
+                        });
+                    } else {
+                        layer.setStyle({
+                            stroke: true,
+                            fill: true
+                        });
+                        layer.bindPopup("I am <b>" + distance.toLocaleString() +
+                            "km</b><br> from the click point.");
+                    }
+                });
+            }
+        });
+
+
         function getRadius(val) {
             var radius = Math.sqrt(val / Math.PI);
             return radius * .8;
         }
-        
+
         var sourcesLabels = {
             "Hydro": geoJsonLayers.hydroLayer,
             "Wind": geoJsonLayers.windLayer,
             "Solar": geoJsonLayers.solarLayer
         }
-        
-        L.control.layers(null, sourcesLabels, { collapsed:false }).addTo(map);
-        
+
+        L.control.layers(null, sourcesLabels, {
+            collapsed: false
+        }).addTo(map);
     </script>
 
 </body>
