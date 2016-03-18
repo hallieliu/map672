@@ -137,6 +137,13 @@
                 }
             }).addTo(map);
         }
+        
+        var layerControl = {
+            "<b style = 'text-shadow: 1px 1px #ECB529'> Coal</b>": geoJsonLayers.coalLayer,
+            "<b style = 'color: #5386e4'>Hydro</b>": geoJsonLayers.hydroLayer,
+            "<b style = 'text-shadow: 0 0 5px #000000; color: white'>Wind </b>": geoJsonLayers.windLayer
+        }
+        L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
         /*
         //
         //  COAL LAYER
