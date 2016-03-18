@@ -133,7 +133,6 @@
                 },
 
                 onEachFeature: function (feature, layer) {
-                    /*
                     layer.on('mouseover', function () {
                         layer.setStyle({
                             fillColor: '#990068'
@@ -141,10 +140,9 @@
                     });
                     layer.on('mouseout', function () {
                         layer.setStyle({
-                            fillColor: ppLayers[layer].color
+                            fillColor: layer.color
                         })
                     });
-                    */
                     layer.bindPopup('<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
                 }
             }).addTo(map);
