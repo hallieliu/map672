@@ -56,7 +56,7 @@
 <body>
     <header>
         <h1>Earth, Water, Wind</h1>
-        <h2>Which one powers the USA?</h2>
+        <h2>Where do they power the USA?</h2>
     </header>
 
     <div id='map'></div>
@@ -110,6 +110,7 @@
         };
 
         var geoJsonLayers = {};
+        var aPopup;
 
         for (var layer in ppLayers) {
             geoJsonLayers[layer] = L.geoJson(plants, {
@@ -155,12 +156,12 @@
             "<b style = 'text-shadow: 0 0 5px #000000; color: white'>Wind </b>": geoJsonLayers.windLayer
         }
         L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
-
+        
         map.on('click', function (e) {
             for (var layer in geoJsonLayers) {
                 geoJsonLayers[layer].eachLayer(function (layer) {
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
-
+            
                     if (distance > 500) {
                         layer.setStyle({
                             stroke: false,
@@ -171,19 +172,14 @@
                             stroke: true,
                             fill: true
                         });
-                        
+                        var newPopup = '<b>' + layer.feature.properties.plant_name + '</b><br>' + 
+                            layer.feature.properties.capacity_mw + ' MW'+ "<br>" + 
+                            distance.toLocaleString() + " km from the click point";
+                        layer.bindPopup(newPopup);
                     };
-                    return L.circleMarker(e, {
-                            color: "red",
-                            fillColor: "red",
-                            fillOpacity: 1,
-                            radius: getRadius(500)
-                        });
-
-                    var newPopup = "<br>" + distance.toLocaleString() + " km from the click point";
-                    layer.bindPopup(newPopup);
+                    
                 });
-            }
+            };
         });
 
         
