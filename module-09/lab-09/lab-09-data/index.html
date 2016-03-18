@@ -94,6 +94,11 @@
             radius: 2
         }
 
+        
+        
+        //
+        //  COAL LAYER
+        //
         var coalLayer = L.geoJson(plants, {
             // option #1: circle markers
             pointToLayer(feature, latlng) {
@@ -129,6 +134,9 @@
                 }
         });
 
+        //
+        //  HYDRO LAYER
+        //
         var hydroLayer = L.geoJson(plants, {
             // option #1: circle markers
             pointToLayer(feature, latlng) {
@@ -164,6 +172,9 @@
                 }
         });
 
+        //
+        //  WIND LAYER
+        //
         var windLayer = L.geoJson(plants, {
             // option #1: circle markers
             pointToLayer(feature, latlng) {
@@ -200,12 +211,18 @@
                 }
         });
 
+        //
+        //  GROUP THE LAYERS
+        //
         var powerPlants = L.layerGroup(
                 [coalLayer,
                 hydroLayer,
                 windLayer])
             .addTo(map);
 
+        //
+        //  ADD TOGGLE LAYER CONTROL
+        //
         var layerControl = {
             "<b style = 'text-shadow: 1px 1px #ECB529'> Coal</b>": coalLayer,
             "<b style = 'color: #5386e4'>Hydro</b>": hydroLayer,
@@ -215,6 +232,9 @@
             collapsed: false
         }).addTo(map);
 
+        //
+        //  COAL SPOTLIGHT POPUP
+        //
         map.on('click', function (e) {
             coalLayer.eachLayer(function (layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
@@ -236,6 +256,9 @@
             });
         });
 
+        //
+        //  HYDRO SPOTLIGHT POPUP
+        //
         map.on('click', function (e) {
             hydroLayer.eachLayer(function (layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000; // distance as km
@@ -256,6 +279,9 @@
             });
         });
 
+        //
+        //  WIND SPOTLIGHT POPUP
+        //
         map.on('click', function (e) {
             windLayer.eachLayer(function (layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000; // distance as km
@@ -275,7 +301,11 @@
                 layer.bindPopup(newPopup);
             });
         });
+        
 
+        //
+        //  FUNCTION: CALCULATE RADIUS 
+        //
         function getRadius(value) {
             var radius = Math.sqrt(value / Math.PI);
             return radius * .6;
