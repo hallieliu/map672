@@ -80,89 +80,205 @@
         });
 
         tiles.addTo(map);
-        
-        
+
+        plants.features.sort(function (a, b) {
+            return b.properties.capacity_mw - a.properties.capacity_mw;     // draws symbols biggest on bottom
+        });
+
         var defaultStyle = {
-            color: '#985984',
-            fillColor: '#985984',
+            color: '#990068',
+            fillColor: '#990068',
             weight: 1,
             stroke: 1,
             fillOpacity: .6,
             radius: 2
         }
-        
+
         var coalLayer = L.geoJson(plants, {
             // option #1: circle markers
-            pointToLayer (feature, latlng) {
-                return L.circleMarker (latlng, defaultStyle);
-            },
-            // option #2: filter data
-            filter (feature) {
-                if (feature.properties.fuel_source.Coal) {
-                    return feature;
+            pointToLayer(feature, latlng) {
+                    return L.circleMarker(latlng, defaultStyle);
+                },
+                // option #2: filter data
+                filter(feature) {
+                    if (feature.properties.fuel_source.Coal) {
+                        return feature;
+                    }
+                },
+                // option #3: style according to fuel type
+                style(feature) {
+                    return {
+                        color: '#ECB529',
+                        fillColor: '#ECB529',
+                        radius: getRadius(feature.properties.capacity_mw)
+                    }
+                },
+                // option #4: highlight with hover + make popup
+                onEachFeature: function (feature, layer) { 
+                    layer.on('mouseover', function () {
+                        layer.setStyle({
+                            fillColor: '#990068'
+                        });
+                    });
+                    layer.on('mouseout', function () {
+                        layer.setStyle({
+                            fillColor: '#ECB529'
+                        });
+                    });
+                    layer.bindPopup('<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
                 }
-            },
-            // option #3: style according to fuel type
-            style (feature) {
-                return {
-                    color: '#ECB529',
-                    fillColor:'#ECB529',
-                    radius: getRadius(feature.properties.fuel_source.Coal)
-                }
-            }
-        }).addTo(map);
-        
+        });
+
         var hydroLayer = L.geoJson(plants, {
             // option #1: circle markers
-            pointToLayer (feature, latlng) {
-                return L.circleMarker (latlng, defaultStyle);
-            },
-            // option #2: filter data
-            filter (feature) {
-                if (feature.properties.fuel_source.Hydro) {
-                    return feature;
+            pointToLayer(feature, latlng) {
+                    return L.circleMarker(latlng, defaultStyle);
+                },
+                // option #2: filter data
+                filter(feature) {
+                    if (feature.properties.fuel_source.Hydro) {
+                        return feature;
+                    }
+                },
+                // option #3: style according to fuel type
+                style(feature) {
+                    return {
+                        color: '#5386e4',
+                        fillColor: '#5386e4',
+                        radius: getRadius(feature.properties.capacity_mw)
+                    }
+                },
+                // option #4: highlight with hover + make popup
+                onEachFeature: function (feature, layer) { 
+                    layer.on('mouseover', function () {
+                        layer.setStyle({
+                            fillColor: '#990068'
+                        });
+                    });
+                    layer.on('mouseout', function () {
+                        layer.setStyle({
+                            fillColor: '#5386e4'
+                        });
+                    });
+                    layer.bindPopup('<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
                 }
-            },
-            // option #3: style according to fuel type
-            style (feature) {
-                return {
-                    color: '#5386e4',
-                    fillColor:'#5386e4',
-                    radius: getRadius(feature.properties.fuel_source.Hydro)
-                }
-            }
-        }).addTo(map);
-        
+        });
+
         var windLayer = L.geoJson(plants, {
             // option #1: circle markers
-            pointToLayer (feature, latlng) {
-                return L.circleMarker (latlng, defaultStyle);
-            },
-            // option #2: filter data
-            filter (feature) {
-                if (feature.properties.fuel_source.Wind) {
-                    return feature;
+            pointToLayer(feature, latlng) {
+                    return L.circleMarker(latlng, defaultStyle);
+                },
+                // option #2: filter data
+                filter(feature) {
+                    if (feature.properties.fuel_source.Wind) {
+                        return feature;
+                    }
+                },
+                // option #3: style according to fuel type
+                style(feature) {
+                    return {
+                        color: '#ffffff',
+                        fillColor: '#ffffff',
+                        radius: getRadius(feature.properties.capacity_mw)
+                    }
+                },
+                // option #4: highlight with hover + make popup
+                onEachFeature: function (feature, layer) { 
+                    layer.on('mouseover', function () {
+                        layer.setStyle({
+                            fillColor: '#990068'
+                        });
+                    });
+                    layer.on('mouseout', function () {
+                        layer.setStyle({
+                            fillColor: '#ffffff'
+                        });
+                    });
+                    var popupInfo = '<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW';
+                    layer.bindPopup(popupInfo);
                 }
-            },
-            // option #3: style according to fuel type
-            style (feature) {
-                return {
-                    color: '#ffffff',
-                    fillColor:'#ffffff',
-                    radius: getRadius(feature.properties.fuel_source.Wind)
-                }
-            }
-        }).addTo(map);
-        
-        var powerPlants = L.layerGroup()
-            .addLayer(coalLayer)
-            .addLayer(hydroLayer)
-            .addLayer(windLayer)
+        });
+
+        var powerPlants = L.layerGroup(
+                [coalLayer,
+                hydroLayer,
+                windLayer])
             .addTo(map);
-        
+
+        var layerControl = {
+            "<b style = 'text-shadow: 1px 1px #ECB529'> Coal</b>": coalLayer,
+            "<b style = 'color: #5386e4'>Hydro</b>": hydroLayer,
+            "<b style = 'text-shadow: 0 0 5px #000000; color: white'>Wind </b>": windLayer
+        }
+        L.control.layers(null, layerControl, {
+            collapsed: false
+        }).addTo(map);
+
+        map.on('click', function (e) {
+            coalLayer.eachLayer(function (layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+
+                if (distance > 500) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true
+                    });
+                };
+
+                var newPopup = "<br>" + distance.toLocaleString() + " km from the click point";
+                layer.bindPopup(newPopup);
+            });
+        });
+
+        map.on('click', function (e) {
+            hydroLayer.eachLayer(function (layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000; // distance as km
+
+                if (distance > 500) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true
+                    });
+                };
+                var newPopup = distance.toLocaleString() + " km from the click point";
+                layer.bindPopup(newPopup);
+            });
+        });
+
+        map.on('click', function (e) {
+            windLayer.eachLayer(function (layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000; // distance as km
+
+                if (distance > 500) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true
+                    });
+                };
+                var newPopup = distance.toLocaleString() + " km from the click point";
+                layer.bindPopup(newPopup);
+            });
+        });
+
         function getRadius(value) {
-            var radius = Math.sqrt(value/Math.PI);
-            return radius * .8;
+            var radius = Math.sqrt(value / Math.PI);
+            return radius * .6;
         }
 
 
@@ -179,6 +295,7 @@
         // color code circle markers based on energy source
         // add toggle control for layers
         // style toggle control labels as a legend
+
         // add click functionality (plants within 500km)
         // add popup on click
         // add spotlight filter
