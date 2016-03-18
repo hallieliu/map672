@@ -94,8 +94,50 @@
             radius: 2
         }
 
+        var ppLayers = {
+            coalLayer: {source: "Coal", color: "#ECB529"},
+            hydroLayer: {source: "Hydro", color: "#5386e4"},
+            windLayer: {source: "Wind", color: "#ffffff"}
+        };
+
+        var geoJsonLayers = {};
         
-        
+        for (var layer in ppLayers) {
+            geoJsonLayers[layer] = L.geoJson (plants, {
+                pointToLayer: function (feature, latlng) {
+                    return L.circleMarker (latlng, defaultStyle);
+                },
+                
+                filter: function (feature) {
+                    if (feature.properties.fuel_source[ppLayers[layer].source]) {
+                        return feature;
+                    }
+                },
+                
+                style: function (feature) {
+                    return {
+                        color: ppLayers[layer].color,
+                        fillColor: ppLayers[layer].color,
+                        radius: getRadius (feature.properties.capacity_mw)
+                    }
+                },
+                
+                onEachFeature: function (feature, layer) {
+                    layer.on('mouseover', function () {
+                        layer.setStyle({
+                            fillColor: '#990068'
+                        })
+                    });
+                    layer.on('mouseout', function () {
+                        layer.setStyle({
+                            fillColor: ppLayers[layer].color
+                        })
+                    });
+                    layer.bindPopup('<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
+                }
+            }).addTo(map);
+        }
+        /*
         //
         //  COAL LAYER
         //
@@ -231,7 +273,7 @@
         L.control.layers(null, layerControl, {
             collapsed: false
         }).addTo(map);
-
+*/
         //
         //  COAL SPOTLIGHT POPUP
         //
