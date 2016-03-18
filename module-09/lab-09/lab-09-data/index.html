@@ -144,6 +144,8 @@
             "<b style = 'text-shadow: 0 0 5px #000000; color: white'>Wind </b>": geoJsonLayers.windLayer
         }
         L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
+        
+        
         /*
         //
         //  COAL LAYER
@@ -285,7 +287,8 @@
         //  COAL SPOTLIGHT POPUP
         //
         map.on('click', function (e) {
-            coalLayer.eachLayer(function (layer) {
+            for (var layer in geoJsonLayers){
+            geoJsonLayers[layer].eachLayer(function (layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
 
                 if (distance > 500) {
@@ -303,8 +306,10 @@
                 var newPopup = "<br>" + distance.toLocaleString() + " km from the click point";
                 layer.bindPopup(newPopup);
             });
+        }
         });
 
+        /*
         //
         //  HYDRO SPOTLIGHT POPUP
         //
@@ -350,7 +355,7 @@
                 layer.bindPopup(newPopup);
             });
         });
-        
+        */
 
         //
         //  FUNCTION: CALCULATE RADIUS 
