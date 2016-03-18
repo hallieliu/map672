@@ -82,7 +82,7 @@
         tiles.addTo(map);
 
         plants.features.sort(function (a, b) {
-            return b.properties.capacity_mw - a.properties.capacity_mw;     // draws symbols biggest on bottom
+            return b.properties.capacity_mw - a.properties.capacity_mw; // draws symbols biggest on bottom
         });
 
         var defaultStyle = {
@@ -95,34 +95,44 @@
         }
 
         var ppLayers = {
-            coalLayer: {source: "Coal", color: "#ECB529"},
-            hydroLayer: {source: "Hydro", color: "#5386e4"},
-            windLayer: {source: "Wind", color: "#ffffff"}
+            coalLayer: {
+                source: "Coal",
+                color: "#ECB529"
+            },
+            hydroLayer: {
+                source: "Hydro",
+                color: "#5386e4"
+            },
+            windLayer: {
+                source: "Wind",
+                color: "#ffffff"
+            }
         };
 
         var geoJsonLayers = {};
-        
+
         for (var layer in ppLayers) {
-            geoJsonLayers[layer] = L.geoJson (plants, {
+            geoJsonLayers[layer] = L.geoJson(plants, {
                 pointToLayer: function (feature, latlng) {
-                    return L.circleMarker (latlng, defaultStyle);
+                    return L.circleMarker(latlng, defaultStyle);
                 },
-                
+
                 filter: function (feature) {
                     if (feature.properties.fuel_source[ppLayers[layer].source]) {
                         return feature;
                     }
                 },
-                
+
                 style: function (feature) {
                     return {
                         color: ppLayers[layer].color,
                         fillColor: ppLayers[layer].color,
-                        radius: getRadius (feature.properties.capacity_mw)
+                        radius: getRadius(feature.properties.capacity_mw)
                     }
                 },
-                
+
                 onEachFeature: function (feature, layer) {
+                    /*
                     layer.on('mouseover', function () {
                         layer.setStyle({
                             fillColor: '#990068'
@@ -133,19 +143,55 @@
                             fillColor: ppLayers[layer].color
                         })
                     });
+                    */
                     layer.bindPopup('<b>' + feature.properties.plant_name + '</b><br>' + feature.properties.capacity_mw + ' MW');
                 }
             }).addTo(map);
         }
-        
+
         var layerControl = {
             "<b style = 'text-shadow: 1px 1px #ECB529'> Coal</b>": geoJsonLayers.coalLayer,
             "<b style = 'color: #5386e4'>Hydro</b>": geoJsonLayers.hydroLayer,
             "<b style = 'text-shadow: 0 0 5px #000000; color: white'>Wind </b>": geoJsonLayers.windLayer
         }
         L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
+
+        map.on('click', function (e) {
+            for (var layer in geoJsonLayers) {
+                geoJsonLayers[layer].eachLayer(function (layer) {
+                    var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+
+                    if (distance > 500) {
+                        layer.setStyle({
+                            stroke: false,
+                            fill: false
+                        });
+                    } else {
+                        layer.setStyle({
+                            stroke: true,
+                            fill: true
+                        });
+                        
+                    };
+                    return L.circleMarker(e, {
+                            color: "red",
+                            fillColor: "red",
+                            fillOpacity: 1,
+                            radius: getRadius(500)
+                        });
+
+                    var newPopup = "<br>" + distance.toLocaleString() + " km from the click point";
+                    layer.bindPopup(newPopup);
+                });
+            }
+        });
+
         
         
+        function getRadius(value) {
+            var radius = Math.sqrt(value / Math.PI);
+            return radius * .6;
+        }
         /*
         //
         //  COAL LAYER
@@ -286,28 +332,6 @@
         //
         //  COAL SPOTLIGHT POPUP
         //
-        map.on('click', function (e) {
-            for (var layer in geoJsonLayers){
-            geoJsonLayers[layer].eachLayer(function (layer) {
-                var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
-
-                if (distance > 500) {
-                    layer.setStyle({
-                        stroke: false,
-                        fill: false
-                    });
-                } else {
-                    layer.setStyle({
-                        stroke: true,
-                        fill: true
-                    });
-                };
-
-                var newPopup = "<br>" + distance.toLocaleString() + " km from the click point";
-                layer.bindPopup(newPopup);
-            });
-        }
-        });
 
         /*
         //
@@ -360,10 +384,7 @@
         //
         //  FUNCTION: CALCULATE RADIUS 
         //
-        function getRadius(value) {
-            var radius = Math.sqrt(value / Math.PI);
-            return radius * .6;
-        }
+        
 
 
 
