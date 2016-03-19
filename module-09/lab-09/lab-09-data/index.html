@@ -154,14 +154,19 @@
         }
         L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
         
+        var spotLight = L.circle([100, 100], 0, {
+            fillColor: '#ffffff',
+            color: '#ffffff',
+            stroke: 0,
+            weight: 1,
+            fillOpacity: 0
+        } ).addTo(map);
+        
         map.on('click', function (e) {
             var spotlight = e.latlng;
-            L.circle(spotlight, 550000, {
-                fillColor: "#ffffff",
-                stroke: 0,
-                weight: 1,
-                fillOpacity: .15
-            }).addTo(map);
+            spotLight.setStyle({fillOpacity: .1})
+                     .setLatLng(spotlight)
+                     .setRadius(550000);
             for (var layer in geoJsonLayers) {
                 geoJsonLayers[layer].eachLayer(function (layer) {
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
