@@ -109,7 +109,13 @@
         };
 
         var geoJsonLayers = {};
-        var aPopup;
+         var spotLight = L.circle([100, 100], 0, {
+            fillColor: '#ffffff',
+            color: '#ffffff',
+            stroke: 0,
+            weight: 1,
+            fillOpacity: 0
+        } ).addTo(map);
 
         for (var layer in ppLayers) {
             geoJsonLayers[layer] = L.geoJson(plants, {
@@ -153,14 +159,6 @@
             "<b style = 'text-shadow: 0 0 5px #000000; color: white'>Wind </b>": geoJsonLayers.windLayer
         }
         L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
-        
-        var spotLight = L.circle([100, 100], 0, {
-            fillColor: '#ffffff',
-            color: '#ffffff',
-            stroke: 0,
-            weight: 1,
-            fillOpacity: 0
-        } ).addTo(map);
         
         map.on('click', function (e) {
             var spotlight = e.latlng;
