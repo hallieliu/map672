@@ -84,10 +84,6 @@
 
         tiles.addTo(map);
 
-        plants.features.sort(function (a, b) {
-            return b.properties.capacity_mw - a.properties.capacity_mw; // draws symbols biggest on bottom
-        });
-
         var defaultStyle = {
             color: '#990068',
             fillColor: '#990068',
@@ -159,6 +155,13 @@
         L.control.layers(null, layerControl, {collapsed: false}).addTo(map);
         
         map.on('click', function (e) {
+            var spotlight = e.latlng;
+            L.circle(spotlight, 550000, {
+                fillColor: "#ffffff",
+                stroke: 0,
+                weight: 1,
+                fillOpacity: .15
+            }).addTo(map);
             for (var layer in geoJsonLayers) {
                 geoJsonLayers[layer].eachLayer(function (layer) {
                     var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
